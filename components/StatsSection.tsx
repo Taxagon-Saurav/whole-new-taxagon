@@ -12,7 +12,6 @@ export function StatsSection() {
       <div className="grid gap-4 rounded-[2rem] border border-slate-200 bg-white/80 p-4 shadow-sm backdrop-blur md:grid-cols-3">
         {stats.map((stat) => (
           <Reveal key={stat.label} className="rounded-[1.5rem] bg-blue-50/60 p-6 text-center">
-            <div className="text-4xl font-bold tracking-[-0.06em] text-[#1C41F7]">{stat.value}</div>
             <div className="text-4xl font-black tracking-[-0.06em] text-[#1C41F7]">{stat.value}</div>
             <p className="mt-2 text-sm font-bold leading-6 text-slate-600">{stat.label}</p>
           </Reveal>
