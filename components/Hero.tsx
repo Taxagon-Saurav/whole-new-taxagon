@@ -19,7 +19,7 @@ export function Hero({ eyebrow, title, description, primary = 'Get Started', sec
       <div className="container-shell grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
         <Reveal>
           <p className="mb-4 text-xs font-black uppercase tracking-[0.24em] text-[#1C41F7]">{eyebrow}</p>
-          <h1 className="text-balance text-5xl font-black leading-[0.95] tracking-[-0.075em] text-slate-950 sm:text-6xl lg:text-7xl xl:text-8xl">{title}</h1>
+          <h1 className="text-balance text-5xl font-black leading-[0.95] tracking-[-0.075em] text-slate-800 sm:text-6xl lg:text-7xl xl:text-8xl">{title}</h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">{description}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <ButtonLink href={links.getStarted}>{primary}</ButtonLink>
