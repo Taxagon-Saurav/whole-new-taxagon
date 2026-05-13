@@ -12,6 +12,8 @@ function Logo() {
     <Link href="/" className="flex items-center gap-3" aria-label="Taxagon home">
       <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#1C41F7] text-lg font-bold text-white shadow-lg shadow-[#1C41F7]/25">T</span>
       <span className="text-xl font-bold tracking-[-0.04em] text-slate-950">Taxagon</span>
+      <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#1C41F7] text-lg font-black text-white shadow-lg shadow-[#1C41F7]/25">T</span>
+      <span className="text-xl font-black tracking-[-0.04em] text-slate-950">Taxagon</span>
     </Link>
   );
 }
@@ -42,6 +44,7 @@ export function Header() {
                     {navServices.map((service) => (
                       <Link key={service.href} href={service.href} className="block rounded-2xl p-4 transition hover:bg-blue-50" role="menuitem">
                         <span className="font-bold text-slate-950">{service.title}</span>
+                        <span className="font-black text-slate-950">{service.title}</span>
                         <span className="mt-1 block text-sm font-medium leading-6 text-slate-500">{service.description}</span>
                       </Link>
                     ))}

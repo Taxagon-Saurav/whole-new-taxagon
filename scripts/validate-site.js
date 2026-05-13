@@ -33,6 +33,15 @@ const globals = readFileSync('app/globals.css', 'utf8');
 if (!globals.includes('@import "tailwindcss"')) throw new Error('Tailwind CSS import missing.');
 if (!globals.toLowerCase().includes('#1c41f7')) throw new Error('Primary Taxagon color missing.');
 
+const packageJson = readFileSync('package.json', 'utf8');
+for (const dependency of ['next', 'react', 'react-dom', 'framer-motion', 'tailwindcss']) {
+  if (!packageJson.includes(`"${dependency}"`)) throw new Error(`Missing dependency: ${dependency}`);
+}
+
+const globals = readFileSync('app/globals.css', 'utf8');
+if (!globals.includes('@import "tailwindcss"')) throw new Error('Tailwind CSS import missing.');
+if (!globals.toLowerCase().includes('#1c41f7')) throw new Error('Primary Taxagon color missing.');
+
 const header = readFileSync('components/Header.tsx', 'utf8');
 for (const text of ['Client Portal', 'Get Started', 'Services', 'Toggle mobile menu']) {
   if (!header.includes(text)) throw new Error(`Header missing ${text}`);

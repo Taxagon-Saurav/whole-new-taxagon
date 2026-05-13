@@ -19,6 +19,16 @@ export function Footer() {
           </div>
           <div>
             <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-slate-950">Quick links</h3>
+              <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[#1C41F7] text-lg font-black text-white">T</span>
+              <span className="text-2xl font-black tracking-[-0.05em] text-slate-950">Taxagon</span>
+            </Link>
+            <p className="mt-5 max-w-sm leading-7 text-slate-600">Comprehensive bookkeeping, tax planning, and filing services for individuals, self-employed professionals, and growing businesses.</p>
+            <div className="mt-6 flex gap-3" aria-label="Social links">
+              {['ig', 'in', 'x'].map((item) => <a key={item} href="#" className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 bg-white text-xs font-black uppercase text-slate-700 transition hover:-translate-y-0.5 hover:border-[#1C41F7]/40">{item}</a>)}
+            </div>
+          </div>
+          <div>
+            <h3 className="text-sm font-black uppercase tracking-[0.18em] text-slate-950">Quick links</h3>
             <ul className="mt-5 grid gap-3 text-sm font-semibold text-slate-600">
               {[
                 ['Home', '/'], ['About', '/about'], ['Services', '/services'], ['Contact', '/contact'],
@@ -27,12 +37,14 @@ export function Footer() {
           </div>
           <div>
             <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-slate-950">Services</h3>
+            <h3 className="text-sm font-black uppercase tracking-[0.18em] text-slate-950">Services</h3>
             <ul className="mt-5 grid gap-3 text-sm font-semibold text-slate-600">
               {navServices.map((service) => <li key={service.href}><Link className="hover:text-[#1C41F7]" href={service.href}>{service.title}</Link></li>)}
             </ul>
           </div>
           <div>
             <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-slate-950">Contact</h3>
+            <h3 className="text-sm font-black uppercase tracking-[0.18em] text-slate-950">Contact</h3>
             <ul className="mt-5 grid gap-3 text-sm font-semibold text-slate-600">
               <li><a className="hover:text-[#1C41F7]" href={links.email}>info@taxagon.co</a></li>
               <li><a className="hover:text-[#1C41F7]" href={links.calendly}>Book a call</a></li>
