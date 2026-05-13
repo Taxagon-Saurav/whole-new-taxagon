@@ -13,10 +13,25 @@ const requiredFiles = [
   'components/Header.tsx',
   'components/Footer.tsx',
   'components/Hero.tsx',
+  'vercel.json',
 ];
 
 const missing = requiredFiles.filter((file) => !existsSync(join(process.cwd(), file)));
 if (missing.length) throw new Error(`Missing required files: ${missing.join(', ')}`);
+
+const vercelConfig = JSON.parse(readFileSync('vercel.json', 'utf8'));
+if (vercelConfig.framework !== 'nextjs') throw new Error('Vercel framework must be nextjs.');
+if (vercelConfig.outputDirectory !== null) throw new Error('Vercel outputDirectory must be null to clear stale public overrides.');
+if (vercelConfig.buildCommand !== 'npm run build') throw new Error('Vercel buildCommand must use npm run build.');
+
+const packageJson = readFileSync('package.json', 'utf8');
+for (const dependency of ['next', 'react', 'react-dom', 'framer-motion', 'tailwindcss']) {
+  if (!packageJson.includes(`"${dependency}"`)) throw new Error(`Missing dependency: ${dependency}`);
+}
+
+const globals = readFileSync('app/globals.css', 'utf8');
+if (!globals.includes('@import "tailwindcss"')) throw new Error('Tailwind CSS import missing.');
+if (!globals.toLowerCase().includes('#1c41f7')) throw new Error('Primary Taxagon color missing.');
 
 const packageJson = readFileSync('package.json', 'utf8');
 for (const dependency of ['next', 'react', 'react-dom', 'framer-motion', 'tailwindcss']) {
