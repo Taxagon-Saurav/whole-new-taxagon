@@ -9,6 +9,8 @@ export function CTASection({ title = 'Ready to simplify your accounting and taxe
         <div>
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-blue-200">Get in touch</p>
           <h2 className="text-balance text-3xl font-bold tracking-[-0.055em] sm:text-5xl">{title}</h2>
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-blue-200">Get in touch</p>
+          <h2 className="text-balance text-3xl font-black tracking-[-0.055em] sm:text-5xl">{title}</h2>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">{description}</p>
         </div>
         <div className="flex flex-wrap gap-3">

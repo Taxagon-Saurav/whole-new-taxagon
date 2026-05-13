@@ -26,6 +26,7 @@ export default function ContactPage() {
         <div>
           <SectionHeading align="left" eyebrow="Get in touch" title="Start with a note or book directly." description="Use the form for accounting, tax advisory, tax preparation, CFO, or company formation requests." />
           <div className="mt-8 grid gap-4">{cards.map((card) => <Reveal key={card.title} className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm"><h3 className="text-xl font-bold tracking-[-0.03em]">{card.title}</h3><p className="mt-2 leading-7 text-slate-600">{card.description}</p><div className="mt-4"><ButtonLink href={card.href} variant="secondary">{card.label}</ButtonLink></div></Reveal>)}</div>
+          <div className="mt-8 grid gap-4">{cards.map((card) => <Reveal key={card.title} className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm"><h3 className="text-xl font-black tracking-[-0.03em]">{card.title}</h3><p className="mt-2 leading-7 text-slate-600">{card.description}</p><div className="mt-4"><ButtonLink href={card.href} variant="secondary">{card.label}</ButtonLink></div></Reveal>)}</div>
         </div>
         <ContactForm />
       </section>

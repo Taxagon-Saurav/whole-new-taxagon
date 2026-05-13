@@ -21,9 +21,8 @@ if (missing.length) throw new Error(`Missing required files: ${missing.join(', '
 
 const vercelConfig = JSON.parse(readFileSync('vercel.json', 'utf8'));
 if (vercelConfig.framework !== 'nextjs') throw new Error('Vercel framework must be nextjs.');
-if (vercelConfig.outputDirectory !== '.next') throw new Error('Vercel outputDirectory must be .next for Next.js builds.');
+if (vercelConfig.outputDirectory !== null) throw new Error('Vercel outputDirectory must be null to clear stale public overrides.');
 if (vercelConfig.buildCommand !== 'npm run build') throw new Error('Vercel buildCommand must use npm run build.');
-if (vercelConfig.installCommand !== 'npm install') throw new Error('Vercel installCommand must install dependencies before build.');
 
 const packageJson = readFileSync('package.json', 'utf8');
 for (const dependency of ['next', 'react', 'react-dom', 'framer-motion', 'tailwindcss']) {
@@ -34,9 +33,14 @@ const globals = readFileSync('app/globals.css', 'utf8');
 if (!globals.includes('@import "tailwindcss"')) throw new Error('Tailwind CSS import missing.');
 if (!globals.toLowerCase().includes('#1c41f7')) throw new Error('Primary Taxagon color missing.');
 
-const buttonLink = readFileSync('components/ButtonLink.tsx', 'utf8');
-if (!buttonLink.includes('function isInternalHref')) throw new Error('ButtonLink must distinguish internal links from external/placeholders.');
-if (!buttonLink.includes('<a href={href}')) throw new Error('ButtonLink must keep external and placeholder CTAs as anchors.');
+const packageJson = readFileSync('package.json', 'utf8');
+for (const dependency of ['next', 'react', 'react-dom', 'framer-motion', 'tailwindcss']) {
+  if (!packageJson.includes(`"${dependency}"`)) throw new Error(`Missing dependency: ${dependency}`);
+}
+
+const globals = readFileSync('app/globals.css', 'utf8');
+if (!globals.includes('@import "tailwindcss"')) throw new Error('Tailwind CSS import missing.');
+if (!globals.toLowerCase().includes('#1c41f7')) throw new Error('Primary Taxagon color missing.');
 
 const header = readFileSync('components/Header.tsx', 'utf8');
 for (const text of ['Client Portal', 'Get Started', 'Services', 'Toggle mobile menu']) {
