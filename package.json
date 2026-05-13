@@ -3,8 +3,27 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "python3 -m http.server 4173",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
     "check": "node scripts/validate-site.js",
-    "test": "npm run check"
+    "test": "npm run check && npm run lint && npm run build"
+  },
+  "dependencies": {
+    "framer-motion": "^12.0.0",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^15.0.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.0.0"
   }
 }

@@ -1,21 +1,44 @@
-# whole-new-taxagon
+# Taxagon Website
 
-One team for all your accounting needs.
+A production-ready Next.js, React, TypeScript, Tailwind CSS, and Framer Motion rebuild for Taxagon.
 
-## Local development
+## Pages
 
-Run the static site locally with:
+- `/`
+- `/about`
+- `/services`
+- `/contact`
+- `/services/tax-advisory`
+- `/services/tax-preparation`
+- `/services/outsourced-cfo`
+- `/services/company-formation`
+
+## Development
 
 ```bash
-npm start
+npm install
+npm run dev
 ```
-
-Then open <http://localhost:4173>.
 
 ## Checks
 
-Run the lightweight site validation with:
-
 ```bash
-npm test
+npm run check
+npm run lint
+npm run build
 ```
+
+## Vercel Deployment
+
+This project includes `vercel.json` to force the Vercel deployment preset back to Next.js and override any stale `public` output-directory setting from Project Settings. Vercel should run `npm run build` and use the `.next` Next.js build output. The config also forces Vercel to run `npm install` before building so the `next` binary is available during `npm run build`.
+
+If Vercel still reports `No Output Directory named "public" found`, confirm the project root is this repository root, make sure the latest commit is deployed, and redeploy so `vercel.json` is applied.
+
+## Placeholder Links
+
+Update the placeholders in `lib/links.ts` before launch:
+
+- Client Portal
+- Get Started
+- Calendly / Book a Call
+- WhatsApp
