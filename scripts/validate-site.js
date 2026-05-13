@@ -1,32 +1,55 @@
-const { readFileSync } = require('node:fs');
+const { existsSync, readFileSync } = require('node:fs');
+const { join } = require('node:path');
 
-const html = readFileSync('index.html', 'utf8');
-const css = readFileSync('styles.css', 'utf8');
+const requiredFiles = [
+  'app/page.tsx',
+  'app/about/page.tsx',
+  'app/services/page.tsx',
+  'app/contact/page.tsx',
+  'app/services/tax-advisory/page.tsx',
+  'app/services/tax-preparation/page.tsx',
+  'app/services/outsourced-cfo/page.tsx',
+  'app/services/company-formation/page.tsx',
+  'components/Header.tsx',
+  'components/Footer.tsx',
+  'components/Hero.tsx',
+  'vercel.json',
+];
 
-const requiredSections = ['services', 'platform', 'industries', 'pricing', 'faq', 'contact'];
-const missingSections = requiredSections.filter((id) => !html.includes(`id="${id}"`));
+const missing = requiredFiles.filter((file) => !existsSync(join(process.cwd(), file)));
+if (missing.length) throw new Error(`Missing required files: ${missing.join(', ')}`);
 
-if (missingSections.length > 0) {
-  throw new Error(`Missing sections: ${missingSections.join(', ')}`);
+const vercelConfig = JSON.parse(readFileSync('vercel.json', 'utf8'));
+if (vercelConfig.framework !== 'nextjs') throw new Error('Vercel framework must be nextjs.');
+if (vercelConfig.outputDirectory !== null) throw new Error('Vercel outputDirectory must be null to clear stale public overrides.');
+if (vercelConfig.buildCommand !== 'npm run build') throw new Error('Vercel buildCommand must use npm run build.');
+
+const packageJson = readFileSync('package.json', 'utf8');
+for (const dependency of ['next', 'react', 'react-dom', 'framer-motion', 'tailwindcss']) {
+  if (!packageJson.includes(`"${dependency}"`)) throw new Error(`Missing dependency: ${dependency}`);
 }
 
-const requiredContent = ['Monthly accounting', 'Tax strategy', 'Payroll & contractors', 'Fractional CFO'];
-const missingContent = requiredContent.filter((copy) => !html.includes(copy));
+const globals = readFileSync('app/globals.css', 'utf8');
+if (!globals.includes('@import "tailwindcss"')) throw new Error('Tailwind CSS import missing.');
+if (!globals.toLowerCase().includes('#1c41f7')) throw new Error('Primary Taxagon color missing.');
 
-if (missingContent.length > 0) {
-  throw new Error(`Missing service content: ${missingContent.join(', ')}`);
+const packageJson = readFileSync('package.json', 'utf8');
+for (const dependency of ['next', 'react', 'react-dom', 'framer-motion', 'tailwindcss']) {
+  if (!packageJson.includes(`"${dependency}"`)) throw new Error(`Missing dependency: ${dependency}`);
 }
 
-if (!html.includes('styles.css')) {
-  throw new Error('The HTML entry point must load styles.css.');
+const globals = readFileSync('app/globals.css', 'utf8');
+if (!globals.includes('@import "tailwindcss"')) throw new Error('Tailwind CSS import missing.');
+if (!globals.toLowerCase().includes('#1c41f7')) throw new Error('Primary Taxagon color missing.');
+
+const header = readFileSync('components/Header.tsx', 'utf8');
+for (const text of ['Client Portal', 'Get Started', 'Services', 'Toggle mobile menu']) {
+  if (!header.includes(text)) throw new Error(`Header missing ${text}`);
 }
 
-if (!css.includes('@media (max-width: 1000px)')) {
-  throw new Error('Responsive tablet styles are missing.');
+const homeContent = readFileSync('app/page.tsx', 'utf8') + readFileSync('lib/content.ts', 'utf8');
+for (const text of ['One team for all your accounting needs', 'Reduce Taxes', 'Join our WhatsApp community', 'What our customers are saying']) {
+  if (!homeContent.includes(text)) throw new Error(`Home page missing ${text}`);
 }
 
-if (!css.includes('@media (max-width: 640px)')) {
-  throw new Error('Responsive mobile styles are missing.');
-}
-
-console.log('Static site validation passed.');
+console.log('Static Next.js site validation passed.');
