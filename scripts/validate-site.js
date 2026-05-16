@@ -31,7 +31,23 @@ const npmrc = readFileSync('.npmrc', 'utf8');
 if (!npmrc.includes('legacy-peer-deps=true')) throw new Error('.npmrc must enable legacy peer deps for stable installs.');
 
 const linksContent = readFileSync('lib/links.ts', 'utf8');
-if (!linksContent.includes('https://ai.studio/apps/45e663e5-e07f-4236-880f-7fca3ea3b3d9')) throw new Error('Get Started link must point to the AI Studio app URL.');
+const requiredGetStartedUrl = 'https://ai.studio/apps/45e663e5-e07f-4236-880f-7fca3ea3b3d9';
+const requiredParsedUrl = new URL(requiredGetStartedUrl);
+const urlCandidates = linksContent.match(/https:\/\/[^\s"'`]+/g) || [];
+const hasRequiredGetStartedUrl = urlCandidates.some((candidate) => {
+  try {
+    const parsed = new URL(candidate);
+    return (
+      parsed.origin === requiredParsedUrl.origin &&
+      parsed.pathname === requiredParsedUrl.pathname &&
+      parsed.search === '' &&
+      parsed.hash === ''
+    );
+  } catch {
+    return false;
+  }
+});
+if (!hasRequiredGetStartedUrl) throw new Error('Get Started link must point to the AI Studio app URL.');
 
 const packageJson = readFileSync('package.json', 'utf8');
 for (const dependency of ['next', 'react', 'react-dom', 'framer-motion', 'tailwindcss', 'autoprefixer']) {
